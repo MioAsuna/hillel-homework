@@ -3,7 +3,6 @@ import os
 import datetime
 from random import choice
 
-
 app = Flask('My 1st app')
 
 
@@ -14,7 +13,7 @@ def home():
 
 @app.route("/whoami/")
 def whoami():
-    return (str(request.user_agent) + '<br>' + str(request.remote_addr) + '<br>' + str(datetime.datetime.now()))
+    return str(request.user_agent) + '<br>' + str(request.remote_addr) + '<br>' + str(datetime.datetime.now())
 
 
 @app.route("/source_code/")
@@ -27,9 +26,10 @@ def source_code():
 @app.route("/random/")
 def random():
     a = ''
-    letters = ['w','q','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m']
-    symbols = ['!','"','№',';','%',':','?','*','(',')','_','+']
-    digits0_9 = ['0','1','2','3','4','5','6','7','8','9']
+    letters = ['w', 'q', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x',
+               'c', 'v', 'b', 'n', 'm']
+    symbols = ['!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+']
+    digits0_9 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     if 'specials' in request.args:
         if request.args['specials'] == '1':
             letters += symbols
@@ -38,12 +38,8 @@ def random():
             letters += digits0_9
     for i in range(int(request.args["length"])):
         a += str(choice(letters))
-    b = ''
-    for key in request.args:
-        b += str(key) + " "
     return a
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-
