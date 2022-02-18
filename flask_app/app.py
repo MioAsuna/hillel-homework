@@ -19,7 +19,7 @@ def home():
     <title>Random string</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
-  
+
 
     <style>
       .bd-placeholder-img {{
@@ -37,12 +37,12 @@ def home():
       }}
     </style>
 
-    
+
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-    
+
   <form method='GET'>
     <img class="mb-4" src="https://media.discordapp.net/attachments/603406472390639678/892162456493887508/Starege.gif" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Please, put length from 1 to 100 and check if u wanna specials and digits</h1>
@@ -60,14 +60,15 @@ def home():
       <input type="checkbox" name = 'numbers' value='1'>
       <label>Numbers</label>
     </div>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Send</button>
+    <a href="/random/">
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Click Me</button>
+    </a>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
   </form>
 </main>
 
 
-    
+
   </body>
 </html>
 
@@ -89,18 +90,15 @@ def source_code():
 @app.route("/random/")
 def random():
     a = ''
-    letters = ['w', 'q', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x',
-               'c', 'v', 'b', 'n', 'm']
-    symbols = ['!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+']
-    digits0_9 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    random_pool = string.ascii_letters
     if 'specials' in request.args:
-        if request.args['specials'] == '1':
-            letters += symbols
+        if request.args['specials']:
+            random_pool += string.punctuation
     if 'digits' in request.args:
-        if request.args['digits'] == '1':
-            letters += digits0_9
+        if request.args['digits']:
+            random_pool += string.digits
     for i in range(int(request.args["length"])):
-        a += str(choice(letters))
+        a += choice(random_pool)
     return a
 
 
